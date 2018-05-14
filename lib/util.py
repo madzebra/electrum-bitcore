@@ -496,7 +496,7 @@ def time_difference(distance_in_time, include_seconds):
 mainnet_block_explorers = {
     'Insight.is': ('https://insight.bitcore.cc/',
                         {'tx': 'tx/', 'addr': 'address/'}),
-    'system default': ('https://insight.bitcore.cc',
+    'system default': ('https://insight.bitcore.cc/',
                         {'tx': 'tx/', 'addr': 'address/'}),
 }
 
