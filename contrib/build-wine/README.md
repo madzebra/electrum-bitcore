@@ -14,13 +14,14 @@ Usage:
  - gpg
  - 7Zip
  - Wine (>= v2)
+ - Winetricks
 
 
 For example:
 
 
 ```
-$ sudo apt-get install wine-development dirmngr gnupg2 p7zip-full
+$ sudo apt-get install wine-development winetricks dirmngr gnupg2 p7zip-full
 $ wine --version
  wine-2.0 (Debian 2.0-3+b2)
 ```
@@ -33,6 +34,6 @@ $ wine --version
  wine-2.21
 ```
 
-2. Make sure `/opt` is writable by the current user.
+2. Make sure `/opt` is owned by the current user.
 3. Run `build.sh`.
 4. The generated binaries are in `./dist`.

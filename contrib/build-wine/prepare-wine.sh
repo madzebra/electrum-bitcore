@@ -65,6 +65,8 @@ echo "done"
 
 wine 'wineboot'
 
+winetricks vcrun2015
+
 mkdir -p /tmp/electrum-build
 
 cd /tmp/electrum-build
