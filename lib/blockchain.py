@@ -28,7 +28,7 @@ from . import util
 from . import bitcoin
 from . import constants
 from .bitcoin import *
-import _powhash
+import powhash
 
 #different MAX_TARGET for bitcore
 #MAX_TARGET = 0x00000000FFFF0000000000000000000000000000000000000000000000000000
@@ -166,7 +166,7 @@ class Blockchain(util.PrintError):
         if header.get('timestamp') >= 1493124696:
              bits = header.get('bits')
              target = self.bits_to_target(bits)
-             _hashpow = _powhash.hash (bfh(serialize_header(header)), header.get('timestamp'))
+             _hashpow = powhash.hash (bfh(serialize_header(header)), header.get('timestamp'))
              if int('0x' + _hashpow, 16) > target:
                   self.print_error("at timestamp %d" % (header.get('timestamp')))
                   self.print_error("insufficient proof of work: %s vs target %s" % ('0x' + _hashpow, hex(target)))

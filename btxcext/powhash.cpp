@@ -168,16 +168,16 @@ static PyMethodDef powhash_methods[] = {
     {NULL, NULL, 0, NULL},
 };
 
-static struct PyModuleDef _powhash =
+static struct PyModuleDef powhash =
 {
     PyModuleDef_HEAD_INIT,
-    "_powhash",
-    "usage _powhash.hash(header,timestamp)\n",
+    "powhash",
+    "usage powhash.hash(header,timestamp)\n",
     -1,
     powhash_methods
 };
 
-PyMODINIT_FUNC PyInit__powhash(void)
+PyMODINIT_FUNC PyInit_powhash(void)
 {
-    return PyModule_Create(&_powhash);
+    return PyModule_Create(&powhash);
 };

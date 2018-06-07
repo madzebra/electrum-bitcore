@@ -38,12 +38,12 @@ if platform.system() in ['Linux', 'FreeBSD', 'DragonFly']:
         (os.path.join(usr_share, 'applications/'), ['electrum.desktop']),
         (os.path.join(usr_share, 'pixmaps/'), ['icons/electrumBTX.png'])
     ]
-ext = Extension('_powhash',
+ext = Extension('powhash',
                  define_macros = [('MAJOR_VERSION', '1'),
                                   ('MINOR_VERSION', '0')],
                  include_dirs = ['/usr/local/include',
                                  'btxcext/inc'],
-                 sources = ['btxcext/_powhash.cpp',
+                 sources = ['btxcext/powhash.cpp',
                             'btxcext/aes_helper.c',
                             'btxcext/blake.c',
                             'btxcext/bmw.c',
