@@ -41,6 +41,6 @@ $ wine --version
    - mingw32-gcc-g++ 
    - msys-base
    After marking these terminate the Installation Manager (click x).
-   In the "Review Changes" window click "Apply".
+   Click "Review Changes" and then "Apply".
 
 4. The generated binaries are in './dist'.
