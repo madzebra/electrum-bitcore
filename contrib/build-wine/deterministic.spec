@@ -14,35 +14,38 @@ else:
 home = 'C:\\electrum\\'
 
 # see https://github.com/pyinstaller/pyinstaller/issues/2005
-hiddenimports = []
+hiddenimports = [""]
 hiddenimports += collect_submodules('trezorlib')
 hiddenimports += collect_submodules('btchip')
 hiddenimports += collect_submodules('keepkeylib')
 hiddenimports += collect_submodules('websocket')
 
 # Add libusb binary
-binaries = [("c:/python3.5.4/libusb-1.0.dll", ".")]
+binaries = [("c:/python3.5.4/libusb-1.0.dll", "."),
+            ("c:/MinGW/bin/libgcc_s_dw2-1.dll", "."),
+            ("c:/MinGW/bin/libstdc++-6.dll", "."),
+            ("c:/electrum/build/lib.win32-3.5/powhash.cp35-win32.pyd", ".")]
 
 # Workaround for "Retro Look":
 binaries += [b for b in collect_dynamic_libs('PyQt5') if 'qwindowsvista' in b[0]]
 
 datas = [
     (home+'lib/currencies.json', 'electrum'),
-    (home+'lib/servers.json', 'electrum'),
-    (home+'lib/checkpoints.json', 'electrum'),
+    (home+'lib/servers_bitcore.json', 'electrum'),
     (home+'lib/servers_testnet.json', 'electrum'),
     (home+'lib/checkpoints_testnet.json', 'electrum'),
     (home+'lib/wordlist/english.txt', 'electrum/wordlist'),
     (home+'lib/locale', 'electrum/locale'),
     (home+'plugins', 'electrum_plugins'),
-    ('C:\\Program Files (x86)\\ZBar\\bin\\', '.')
+    ('C:\\Program Files\\ZBar\\bin\\', '.')
 ]
 datas += collect_data_files('trezorlib')
 datas += collect_data_files('btchip')
 datas += collect_data_files('keepkeylib')
 
 # We don't put these files in to actually include them in the script but to make the Analysis method scan them for imports
-a = Analysis([home+'electrum',
+options = [ ( 'v', None, 'OPTION' ) ]
+a = Analysis([home+'electrum-bitcore',
               home+'gui/qt/main_window.py',
               home+'gui/text.py',
               home+'lib/util.py',
@@ -84,13 +87,14 @@ pyz = PYZ(a.pure)
 exe_standalone = EXE(
     pyz,
     a.scripts,
+    options,
     a.binaries,
     a.datas, 
-    name=os.path.join('build\\pyi.win32\\electrum', cmdline_name + ".exe"),
+    name=os.path.join('build\\pyi.win32\\electrum-bitcore', cmdline_name + ".exe"),
     debug=False,
     strip=None,
     upx=False,
-    icon=home+'icons/electrum.ico',
+    icon=home+'icons/electrumBTX.ico',
     console=False)
     # console=True makes an annoying black box pop up, but it does make Electrum output command line commands, with this turned off no output will be given but commands can still be used
 
@@ -99,11 +103,11 @@ exe_portable = EXE(
     a.scripts,
     a.binaries,
     a.datas + [ ('is_portable', 'README.md', 'DATA' ) ],
-    name=os.path.join('build\\pyi.win32\\electrum', cmdline_name + "-portable.exe"),
+    name=os.path.join('build\\pyi.win32\\electrum-bitcore', cmdline_name + "-portable.exe"),
     debug=False,
     strip=None,
     upx=False,
-    icon=home+'icons/electrum.ico',
+    icon=home+'icons/electrumBTX.ico',
     console=False)
 
 #####
@@ -117,7 +121,7 @@ exe_dependent = EXE(
     debug=False,
     strip=None,
     upx=False,
-    icon=home+'icons/electrum.ico',
+    icon=home+'icons/electrumBTX.ico',
     console=False)
 
 coll = COLLECT(
@@ -128,6 +132,6 @@ coll = COLLECT(
     strip=None,
     upx=True,
     debug=False,
-    icon=home+'icons/electrum.ico',
+    icon=home+'icons/electrumBTX.ico',
     console=False,
     name=os.path.join('dist', 'electrum'))

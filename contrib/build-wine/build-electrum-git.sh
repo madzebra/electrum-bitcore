@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME_ROOT=electrum
+NAME_ROOT=electrum-bitcore
 PYTHON_VERSION=3.5.4
 
 # These settings probably don't need any change
@@ -11,6 +11,9 @@ export PYTHONHASHSEED=22
 PYHOME=c:/python$PYTHON_VERSION
 PYTHON="wine $PYHOME/python.exe -OO -B"
 
+if [ ! -d $WINEPREFIX/drive_c/MinGW ]; then
+wine mingw-get-setup.exe
+fi
 
 # Let's begin!
 cd `dirname $0`
@@ -24,11 +27,11 @@ cd tmp
 if [ -d electrum-bitcore ]; then
     cd electrum-bitcore
     git pull
-    git checkout bitcore
+    git checkout
     cd ..
 else
     URL=https://github.com/LIMXTEC/electrum-bitcore.git
-    git clone -b bitcore $URL electrum-bitcore
+    git clone $URL electrum-bitcore
 fi
 if [ -d electrum-bitcore-icons ]; then
     cd electrum-bitcore-icons
@@ -78,10 +81,18 @@ $PYTHON -m pip install -r ../../deterministic-build/requirements.txt
 
 $PYTHON -m pip install -r ../../deterministic-build/requirements-hw.txt
 
+# fixes to get the MinGW compiler to run with Python
+sed -i "/btxcext\/inc/ a \                 extra_compile_args = ['-D_hypot=hypot']," $WINEPREFIX/drive_c/electrum/setup.py
+cp ../vcruntime140.lib $WINEPREFIX/drive_c/python$PYTHON_VERSION/libs
+cp $WINEPREFIX/drive_c/python$PYTHON_VERSION/Lib/distutils/cygwinccompiler.py cygwinccompiler.py
+sed -i "/return \['msvcr100'\]/ a \        elif msc_ver == '1900':\n            return \['vcruntime140'\]" $WINEPREFIX/drive_c/python$PYTHON_VERSION/Lib/distutils/cygwinccompiler.py
+
 pushd $WINEPREFIX/drive_c/electrum
+WINEPATH="C:\\MinGW\\bin;C:\\MinGW\\msys\\1.0\\bin" $PYTHON setup.py build_ext -c mingw32
 $PYTHON setup.py install
 popd
 
+cp cygwinccompiler.py $WINEPREFIX/drive_c/python$PYTHON_VERSION/Lib/distutils/cygwinccompiler.py 
 cd ..
 
 rm -rf dist/
@@ -95,11 +106,11 @@ find -exec touch -d '2000-11-11T11:11:11+00:00' {} +
 popd
 
 # build NSIS installer
-# $VERSION could be passed to the electrum.nsi script, but this would require some rewriting in the script iself.
-wine "$WINEPREFIX/drive_c/Program Files (x86)/NSIS/makensis.exe" /DPRODUCT_VERSION=$VERSION electrum.nsi
+# $VERSION could be passed to the electrum.nsi script, but this would require some rewriting in the script itself.
+wine "$WINEPREFIX/drive_c/Program Files/NSIS/makensis.exe" /DPRODUCT_VERSION=$VERSION electrum.nsi
 
 cd dist
-mv electrum-setup.exe $NAME_ROOT-$VERSION-setup.exe
+mv electrum-bitcore-setup.exe $NAME_ROOT-$VERSION-setup.exe
 cd ..
 
 echo "Done."

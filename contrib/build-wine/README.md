@@ -14,14 +14,12 @@ Usage:
  - gpg
  - 7Zip
  - Wine (>= v2)
- - Winetricks
-
 
 For example:
 
 
 ```
-$ sudo apt-get install wine-development winetricks dirmngr gnupg2 p7zip-full
+$ sudo apt-get install wine-development dirmngr gnupg2 p7zip-full
 $ wine --version
  wine-2.0 (Debian 2.0-3+b2)
 ```
@@ -36,4 +34,13 @@ $ wine --version
 
 2. Make sure `/opt` is owned by the current user.
 3. Run `build.sh`.
-4. The generated binaries are in `./dist`.
+
+   As part of the build process the MinGW Installation Manager is run. 
+   The following have to be marked for installation:
+   - mingw32-base
+   - mingw32-gcc-g++ 
+   - msys-base
+   After marking these terminate the Installation Manager (click x).
+   In the "Review Changes" window click "Apply".
+
+4. The generated binaries are in './dist'.
