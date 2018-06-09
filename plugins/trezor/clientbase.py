@@ -134,7 +134,7 @@ class TrezorClientBase(GuiMixin, PrintError):
         0/-1/1' -> [0, 0x80000001, 0x80000001]'''
         # This code is similar to code in trezorlib where it unforunately
         # is not declared as a staticmethod.  Our n has an extra element.
-        PRIME_DERIVATION_FLAG = 0x800000a0
+        PRIME_DERIVATION_FLAG = 0x80000000
         path = []
         for x in n.split('/')[1:]:
             prime = 0
