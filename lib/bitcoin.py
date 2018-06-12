@@ -572,7 +572,7 @@ from ecdsa.util import string_to_number, number_to_string
 
 def msg_magic(message):
     length = bfh(var_int(len(message)))
-    return b"BitCore Signed Message:\n" + message
+    return b"\x18BitCore Signed Message:\n" + length + message
 
 
 def verify_message(address, sig, message):
