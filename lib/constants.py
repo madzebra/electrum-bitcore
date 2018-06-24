@@ -41,9 +41,9 @@ class BitcoreMainnet:
 
     TESTNET = False
     WIF_PREFIX = 0x80
-    ADDRTYPE_P2PKH = 0
-    ADDRTYPE_P2SH = 5
-    SEGWIT_HRP = "bc"
+    ADDRTYPE_P2PKH = 3
+    ADDRTYPE_P2SH = 125
+    SEGWIT_HRP = "btx"
     GENESIS = "604148281e5c4b7f2487e5d03cd60d8e6f69411d613f6448034508cea52e9574"
     DEFAULT_PORTS = {'t': '50001', 's': '50002'}
     DEFAULT_SERVERS = read_json('servers_bitcore.json', {})
