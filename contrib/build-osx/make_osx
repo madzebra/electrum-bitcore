@@ -21,7 +21,7 @@ VERSION=`grep ELECTRUM_VERSION lib/version.py | sed "s/.*= '\(.*\)'.*/\1/"`
 PYTHON_VERSION=3.6.4
 BUILDDIR=/tmp/electrum-build
 PACKAGE=ElectrumBTX
-GIT_REPO=https://github.com/ULorenzen/electrum-bitcore
+GIT_REPO=https://github.com/LIMXTEC/electrum-bitcore
 
 
 info "Installing Python $PYTHON_VERSION"
