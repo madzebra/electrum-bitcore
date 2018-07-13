@@ -5,10 +5,10 @@ from PyInstaller.utils.hooks import collect_data_files, collect_submodules, coll
 import sys
 import os
 
-PACKAGE='Electrum'
-PYPKG='electrum'
-MAIN_SCRIPT='electrum'
-ICONS_FILE='electrum.icns'
+PACKAGE='ElectrumBTX'
+PYPKG='electrum-bitcore'
+MAIN_SCRIPT='electrum-bitcore'
+ICONS_FILE='icons/electrumBTX.icns'
 
 for i, x in enumerate(sys.argv):
     if x == '--name':
@@ -29,8 +29,7 @@ hiddenimports += collect_submodules('websocket')
 
 datas = [
     (electrum+'lib/currencies.json', PYPKG),
-    (electrum+'lib/servers.json', PYPKG),
-    (electrum+'lib/checkpoints.json', PYPKG),
+    (electrum+'lib/servers_bitcore.json', PYPKG),
     (electrum+'lib/servers_testnet.json', PYPKG),
     (electrum+'lib/checkpoints_testnet.json', PYPKG),
     (electrum+'lib/wordlist/english.txt', PYPKG + '/wordlist'),

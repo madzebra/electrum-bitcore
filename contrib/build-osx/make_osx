@@ -15,13 +15,13 @@ test -n "$build_dir" -a -d "$build_dir" || exit
 cd $build_dir/../..
 
 export PYTHONHASHSEED=22
-VERSION=`git describe --tags`
+VERSION=`grep ELECTRUM_VERSION lib/version.py | sed "s/.*= '\(.*\)'.*/\1/"`
 
 # Paramterize
 PYTHON_VERSION=3.6.4
 BUILDDIR=/tmp/electrum-build
-PACKAGE=Electrum
-GIT_REPO=https://github.com/spesmilo/electrum
+PACKAGE=ElectrumBTX
+GIT_REPO=https://github.com/ULorenzen/electrum-bitcore
 
 
 info "Installing Python $PYTHON_VERSION"
